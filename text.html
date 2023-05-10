@@ -1,0 +1,67 @@
+<body>
+<canvas id="screen"/>
+</body>
+<script>
+  var Display = function(o) {    
+    var b = [], w='';
+    const s = document.getElementById(o.id);
+    const x = s.getContext('2d');
+    for (let c = 0; c < o.cols; c++) w += ' ';
+    for (let r = 0; r < o.rows; r++) { b.push([]);
+    for (let c = 0; c < o.cols; c++) b[r].push(' '); }
+    x.font = o.fontSize + 'px ' + o.font;
+    s.width = x.measureText(w).width + 2;
+    s.height = o.rows * o.fontSize;
+
+    (function run() {    
+      x.fillStyle = o.backgroundColor;
+      x.fillRect(0, 0, s.width, s.height);
+      x.fillStyle = o.foregroundColor;
+      x.font = o.fontSize + 'px ' + o.font;
+      for (let r = 0; r < o.rows; r++) { for (let c = 0; c < o.cols; c++) x.fillText(
+      b[r][c], (c * o.fontSize / o.fontSpacing), (r * o.fontSize + o.fontSize - 3)); }
+      requestAnimationFrame(run);
+    })();
+    
+    return {
+      get: function(y, x) { return b[y][x]; },
+      set: function(y, x, c) { b[y][x] = c; }
+    }
+  };
+  
+  function cursorLoop() {
+    
+    setTimeout(function() {
+      screen.set(10, 10, screen.get(10, 10) == ' ' ? '█':' ');
+    }, 0);
+    setTimeout(cursorLoop, 500)
+  }
+  
+  var screen = Display({
+    id: 'screen',
+    rows: 24,
+    cols: 80,
+    font: 'Mono',
+    fontSize: 16,
+    fontSpacing: 1.66,
+    backgroundColor: 'black',
+    foregroundColor: 'white'
+  });
+  
+  
+  
+  //setTimeout(function() {
+    screen.set(10,6, 'h')
+    screen.set(10,7, 'e')
+    screen.set(10,8, 'l')
+    screen.set(10,9, 'l')
+    screen.set(10,10, 'o')
+    cursorLoop();
+  //}, 0);
+  
+  
+  
+  
+  
+  
+</script>
