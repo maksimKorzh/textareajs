@@ -1,4 +1,4 @@
-# Display JS
+# TextAreaJS
 An HTML canvas based widget to display text at given row/col coordinates
 
 # API
