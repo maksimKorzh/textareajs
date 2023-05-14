@@ -1,5 +1,5 @@
 /* Donate via PayPal (maksymkorzh@gmail.com) */
-var Display = function(o) {
+var TextArea = function(o) {
   var b = [], w='';
   const s = document.getElementById(o.id);
   const x = s.getContext('2d');

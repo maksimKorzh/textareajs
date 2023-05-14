@@ -14,23 +14,26 @@ An HTML canvas based widget to display text at given row/col coordinates
   // displays 'W' at 10th row and 12th column with default attributes
   display.set(9, 11, 'W');
   
-  // same but with yellow foreground, blue background color
-  display.set(9, 11, 'W', 'yellow', 'blue')
+  // same but with yellow foreground and blue background color
+  display.set(9, 11, 'W', 'yellow', 'blue');
   
   // same but with a bold font weight
-  display.set(9, 11, 'W', 'yellow', 'blue', 'bold')
+  display.set(9, 11, 'W', 'yellow', 'blue', 'bold');
+  
+  // returns object {char: 'W', bgcolor: 'blue', fgcolor: 'yellow', weight: 'bold'} at row/col
+  display.get(9, 11);
 ```
 
 # Example usage
 ```html
 <html>
   <body>
-    <canvas id="display"/>
-    <script src="display.js"></script>
+    <canvas id="textarea"/>
+    <script src="textarea.js"></script>
     <script>
       // create display object
-      var display = Display({
-        id: 'display',
+      var textArea = TextArea({
+        id: 'textarea',
         rows: 24,
         cols: 80,
         font: 16,
@@ -39,15 +42,15 @@ An HTML canvas based widget to display text at given row/col coordinates
       // string to display at given coords
       let hello = 'Hello, world!';
       
-      // set foreground & background color
+      // set background color to blue
       for (let r = 0; r < 24; r++) {
         for (let c = 0; c < 80; c++)
-          display.set(r, c, ' ', 'yellow', 'blue', 'normal');
+          textArea.set(r, c, ' ', 'yellow', 'blue', 'normal');
       }
       
       // render string
       for (let i = 0; i < hello.length; i++)
-        display.set(11, i+33, hello[i], 'yellow', 'blue', 'normal');
+        textArea.set(11, i+33, hello[i], 'yellow', 'blue', 'normal');
     </script>
   </body>
 </html>
