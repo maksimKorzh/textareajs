@@ -8,13 +8,13 @@ var TextArea = function(o) {
   for (let c = 0; c < o.cols; c++) b[r].push({
   'char': ' ', 'bgcolor': 'black',
   'fgcolor': 'white', 'weight': 'normal' });}
-  x.font = o.font + 'px Mono';
+  x.font = o.font + 'px Courier New';
   s.width = x.measureText(w).width + 2;
   s.height = o.rows * o.font;
   (function run() {    
     for (let r = 0; r < o.rows; r++) {
     for (let c = 0; c < o.cols; c++) {
-      x.font = b[r][c].weight + ' ' + o.font + 'px Mono';
+      x.font = b[r][c].weight + ' ' + o.font + 'px Courier New';
       x.fillStyle = b[r][c].bgcolor;
       x.fillRect((c * o.font / 1.66), (r * o.font),
       (c * o.font / 1.66) + s.width/o.cols+1, (r * o.font) + s.width/o.rows/2);
