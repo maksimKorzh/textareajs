@@ -11,7 +11,8 @@ var TextArea = function(o) {
   x.font = o.font + 'px Courier New';
   s.width = x.measureText(w).width + 2;
   s.height = o.rows * o.font;
-  (function run() {    
+  
+  (function run() {
     for (let r = 0; r < o.rows; r++) {
     for (let c = 0; c < o.cols; c++) {
       x.font = b[r][c].weight + ' ' + o.font + 'px Courier New';
@@ -20,14 +21,22 @@ var TextArea = function(o) {
       (c * o.font / 1.66) + s.width/o.cols+1, (r * o.font) + s.width/o.rows/2);
       x.fillStyle = b[r][c].fgcolor;
       x.fillText( b[r][c].char, (c * o.font / 1.66), (r * o.font + o.font - 3));}
-    } requestAnimationFrame(run);
-  })(); return {
+    } //setTimeout(run, 0);
+  })();
+    
+  return {
     get: function(r, c) { return b[r][c]; },
     set: function(r, c, char, fgcolor, bgcolor, weight) {
       b[r][c].char = char;
       b[r][c].bgcolor = (typeof(bgcolor) === 'undefined') ? 'black' : bgcolor;
       b[r][c].fgcolor = (typeof(fgcolor) === 'undefined') ? 'white' : fgcolor;
       b[r][c].weight = (typeof(weight) === 'undefined') ? 'normal' : weight;
+      x.font = b[r][c].weight + ' ' + o.font + 'px Courier New';
+      x.fillStyle = b[r][c].bgcolor;
+      x.fillRect((c * o.font / 1.66), (r * o.font),
+      (c * o.font / 1.66) + s.width/o.cols+1, (r * o.font) + s.width/o.rows/2);
+      x.fillStyle = b[r][c].fgcolor;
+      x.fillText( b[r][c].char, (c * o.font / 1.66), (r * o.font + o.font - 3));
     }
   }
 };
