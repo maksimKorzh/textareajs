@@ -1,66 +1,7 @@
 <html>
   <body>
     <canvas id="textarea" tabindex=0 style="outline: none; border: 2px ridge white;"></canvas>
+    <p>Donate via PayPal (maksymkorzh@gmail.com)<p>
     <script src="textarea.js"></script>
-    <script>
-      // display
-      var textArea = TextArea({
-        id: 'textarea',
-        rows: 24,
-        cols: 80,
-        font: 16,
-      });
-      
-      textArea.set(0, 0, '█');
-      
-      
-      
-      // text editor
-      const R = 24; C = 80; var b = [[]]; var x=y=r=c=0;
-      var V = document.getElementById("textarea"); V.focus();
-      V.addEventListener('focusout', function (e) { V.style.border = '2px ridge grey'; });
-      V.addEventListener('focus', function (e) { V.style.border = '2px ridge white'; });
-      V.addEventListener('keydown', function (e) {
-        let ch = e.key;
-        if (ch == 'Enter') {
-          let l = b[r].slice(c, b[r].length);
-          b[r] = b[r].slice(0, c);
-          r += 1; c = 0;
-          b.splice(r, 0, [].concat(l));
-        } else if (ch == 'Backspace') {
-          if (c) { c -= 1; b[r].splice(c, 1); }
-          else if (r) {
-            let l = b[r].slice(c, b[r].length); b.splice(r, 1);
-            r -= 1; c = b[r].length; b[r] = b[r].concat(l);
-          }
-        } else if (ch == 'ArrowLeft') { if (c != 0) c -= 1; else if (r > 0) { r -= 1; c = b[r].length; }
-        } else if (ch == 'ArrowRight') { if (c < b[r].length) c += 1;
-          else if (r < b.length-1) { r += 1; c = 0; }
-        } else if (ch == 'ArrowUp' && r != 0) r -= 1;
-          else if (ch == 'ArrowDown' && r < b.length-1) r += 1;
-          else if (ch.length == 1) { b[r].splice(c, 0, ch); c += 1;
-        } let rw = r < b.length ? b[r] : -1; let rwlen = rw == -1 ? 0 : rw.length;
-        if (c > rwlen) c = rwlen;
-        if (r < y) y = r;
-        if (r >= y + R) y = r - R+1;
-        if (c < x) x = c;
-        if (c >= x + C) x = c - C+1;
-        
-        
-      });
-      
-      (function run() {
-          for (let rw = 0; rw < R; rw++) {
-            let brw = rw + y;
-            for (let cl = 0; cl < C; cl++) {
-              let bcl = cl + x;
-              try {if (b[brw][bcl].length) textArea.set(rw, cl, b[brw][bcl], 'white', 'blue'); }
-              catch(e) { /*textArea.set(rw, cl, ' ');*/ }
-            }
-          } textArea.set(r-y, c-x, '█');
-          requestAnimationFrame(run);
-       })();
-      
-    </script>
   </body>
 </html>
